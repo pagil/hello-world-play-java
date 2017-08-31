@@ -1,10 +1,13 @@
 package controllers;
 
-import javax.inject.*;
-import play.*;
-import play.mvc.*;
-
+//import play.api.i18n.Messages;
+import play.i18n.Messages;
+import play.mvc.Controller;
+import play.mvc.Result;
 import services.Counter;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * This controller demonstrates how to use dependency injection to
@@ -19,7 +22,7 @@ public class CountController extends Controller {
 
     @Inject
     public CountController(Counter counter) {
-       this.counter = counter;
+        this.counter = counter;
     }
 
     /**
@@ -29,7 +32,11 @@ public class CountController extends Controller {
      * requests by an entry in the <code>routes</code> config file.
      */
     public Result count() {
-        return ok(Integer.toString(counter.nextCount()));
+        // String msg = Messages.get("files.summary");
+        // msg = String.format(msg, 123);
+        String msg = Messages.get("files.summary", "100", "disk name");
+        // return ok(Integer.toString(counter.nextCount()));
+        return ok(msg);
     }
 
 }
